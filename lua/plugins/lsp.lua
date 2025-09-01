@@ -1,8 +1,3 @@
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-
 return{
   {
     'williamboman/mason.nvim',
@@ -49,12 +44,12 @@ return{
           -- Set keymaps for LSP actions (common practice with on_attach)
           -- Example: 'K' to show hover documentation (which also includes diagnostics if present)
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = 'LSP: Hover Documentation' })
-          vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { buffer = bufnr, desc = 'Show line diagnostics' })
+          vim.keymap.set('n', '<C-k>d', vim.diagnostic.open_float, { buffer = bufnr, desc = 'Show line diagnostics' })
       end
 
       -- All mason-lspconfig setup is now here
       require('mason-lspconfig').setup({
-        ensure_installed = { "gopls", "lua_ls", "ts_ls" },
+        ensure_installed = { "gopls", "lua_ls", "ts_ls"},
         -- Use the 'handlers' key instead of a separate setup_handlers call
         handlers = {
           function(server_name) -- Default handler
