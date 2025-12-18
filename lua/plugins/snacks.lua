@@ -4,10 +4,27 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bigfile = { enabled = false },
+    bigfile = { enabled = true },
     dashboard = { enabled = false },
     explorer = { enabled = false },
-    indent = { enabled = false },
+    indent = {
+      indent = {
+        enabled = true,
+        priority = 1,
+        char = "│",
+        only_scope = false, -- only show indent guides of the scope
+        only_current = false, -- only show indent guides in the current window
+        hl = "h0"
+      },
+      scope = {
+        enabled = true, -- enable highlighting the current scope
+        priority = 200,
+        char = "│",
+        underline = false, -- underline the start of the scope
+        only_current = false, -- only show scope in the current window
+        hl = "h1", -- hl group for scopes
+      },
+    },
     input = { enabled = false },
     picker = { enabled = false },
     notifier = { enabled = false },

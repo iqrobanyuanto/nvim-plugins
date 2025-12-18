@@ -16,6 +16,13 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
 
+-- Highlight group setup
+local hl = vim.api.nvim_set_hl
+
+-- Snack indent group
+hl(0, "h0", { fg = "#8a8a8a" }) -- Grey
+hl(0, "h1", { fg = "#00fbff" }) -- Cyan
+
 require("lazy").setup({
   spec = {
     -- import/override with your plugins
