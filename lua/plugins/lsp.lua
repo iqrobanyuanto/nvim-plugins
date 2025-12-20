@@ -74,5 +74,35 @@ return{
     })
    end,
   },
+  {
+    "stevearc/conform.nvim",
+    config = function ()
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+          go = {"gofumpt"},
+          typescript = {"prettier"},
+          json = {"prettier"},
+        },
+        -- Set the log level. Use `:ConformInfo` to see the location of the log file.
+        log_level = vim.log.levels.ERROR,
+        -- Conform will notify you when a formatter errors
+        notify_on_error = true,
+        -- Conform will notify you when no formatters are available for the buffer
+        notify_no_formatters = true,
+      })
+
+      local formatCommand = function ()
+        require("conform").format({
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500,
+        })
+      end
+
+      -- set key to format
+      vim.keymap.set({ "n", "v" }, "<leader>mf", formatCommand, {desc="code formatter command"})
+    end
+  }
 }
 
