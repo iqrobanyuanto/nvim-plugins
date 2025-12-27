@@ -101,7 +101,7 @@ return{
       end
 
       -- set key to format
-      vim.keymap.set({ "n", "v" }, "<leader>mf", formatCommand, {desc="code formatter command"})
+      vim.keymap.set({ "n", "v" }, "<C-k>f", formatCommand, {desc="code formatter command"})
     end
   }
 }
