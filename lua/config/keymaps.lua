@@ -26,8 +26,8 @@ vim.keymap.set("n", "<leader>fc", "<cmd>Telescope git_commits<cr>",   { desc = "
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope git_stash<cr>",   { desc = "Show git stash", noremap=true, silent=true })
 
 -- Windows and buffer navigation keymaps
-vim.keymap.set("n", "<A-l>", "<C-W>w",   { desc = "navigate to the next window", noremap=true, silent=true })
-vim.keymap.set("n", "<A-h>", "<C-W>p",   { desc = "navigate to the prev window", noremap=true, silent=true })
+vim.keymap.set({"n","t"}, "<A-l>", "[[<C-\\><C-n><C-W>w]]",   { desc = "navigate to the next window", noremap=true, silent=true })
+vim.keymap.set({"n","t"}, "<A-h>", "[[<C-\\><C-n><C-W>p]]",   { desc = "navigate to the prev window", noremap=true, silent=true })
 vim.keymap.set("n", "<C-k>k", ":bd<cr>",   { desc = "delete the current buffer", noremap=true, silent=true })
 
 -- Lsp keymaps
