@@ -11,7 +11,7 @@ return {
 
         -- If not in a git repo, branch will be empty
         if branch == "" then
-          return nil
+          return ("undefined")
         end
 
         -- 2. Get the remote tracking branch (e.g., origin/main)
@@ -21,7 +21,7 @@ return {
         if remote ~= "" then
           return string.format(" %s...%s ", branch, remote)
         else
-          return string.format( "%s (no remote) ", branch)
+          return string.format( "%s...no-remote ", branch)
         end
       end
 

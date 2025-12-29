@@ -51,6 +51,8 @@ return {
           col = 1,
         },
       })
+
+      vim.keymap.set({"n","v"}, "<leader>fH", "<cmd>Gitsigns preview_hunk_inline<cr>",  { desc = "Hunk changes",  noremap=true, silent=true })
     end,
   },
 }

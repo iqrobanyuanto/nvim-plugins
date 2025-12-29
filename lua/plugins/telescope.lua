@@ -12,18 +12,29 @@ return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons" ,
-    'williamboman/mason-lspconfig.nvim',
+    "nvim-tree/nvim-web-devicons",
+    "williamboman/mason-lspconfig.nvim",
   },
   opts = {
     defaults = {
-      vimgrep_arguments = vimgrep_arguments
+      vimgrep_arguments = vimgrep_arguments,
     },
     pickers = {
       find_files = {
         -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-        find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+        -- Respect `.gitignore`, but still allow selecting `.env` explicitly.
+        find_command = {
+          "bash",
+          "-lc",
+          [[
+            {
+              # If `.env` exists but is `.gitignore`'d, include it anyway.
+              [ -f .env ] && printf '%s\n' '.env'
+              rg --files --hidden --glob '!**/.git/*'
+            } | awk '!seen[$0]++'
+          ]],
+        },
       },
     },
-  }
+  },
 }
