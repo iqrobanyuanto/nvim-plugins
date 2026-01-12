@@ -24,10 +24,15 @@ vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",   { desc = "He
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope git_status<cr>",   { desc = "Show git status", noremap=true, silent=true })
 vim.keymap.set("n", "<leader>fc", "<cmd>Telescope git_commits<cr>",   { desc = "Show git commit", noremap=true, silent=true })
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope git_stash<cr>",   { desc = "Show git stash", noremap=true, silent=true })
+vim.keymap.set("t", "<C-\\>", "[[<C-\\><C-n>]]",   { desc = "change to terminal mode when in normal mode", noremap=true, silent=true })
 
 -- Windows and buffer navigation keymaps
-vim.keymap.set({"n","t"}, "<A-l>", "[[<C-\\><C-n><C-W>w]]",   { desc = "navigate to the next window", noremap=true, silent=true })
-vim.keymap.set({"n","t"}, "<A-h>", "[[<C-\\><C-n><C-W>p]]",   { desc = "navigate to the prev window", noremap=true, silent=true })
+-- In terminal mode, we must leave terminal-job mode before window commands work.
+-- In normal mode, don't send terminal escape keys (they can interfere with normal navigation).
+vim.keymap.set("n", "<A-l>", "<C-W>w", { desc = "navigate to the next pane", noremap = true, silent = true })
+vim.keymap.set("n", "<A-h>", "<C-W>p", { desc = "navigate to the prev pane", noremap = true, silent = true })
+vim.keymap.set("t", "<A-l>", "<C-\\><C-n><C-W>w", { desc = "navigate to the next pane", noremap = true, silent = true })
+vim.keymap.set("t", "<A-h>", "<C-\\><C-n><C-W>p", { desc = "navigate to the prev pane", noremap = true, silent = true })
 vim.keymap.set("n", "<C-k>k", ":bd<cr>",   { desc = "delete the current buffer", noremap=true, silent=true })
 
 -- Lsp keymaps
