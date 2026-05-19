@@ -14,7 +14,7 @@ return {
         char = "│",
         only_scope = false, -- only show indent guides of the scope
         only_current = false, -- only show indent guides in the current window
-        hl = "h0"
+        hl = "h0",
       },
       scope = {
         enabled = true, -- enable highlighting the current scope

@@ -23,18 +23,29 @@ local hl = vim.api.nvim_set_hl
 hl(0, "h0", { fg = "#8a8a8a" }) -- Grey
 hl(0, "h1", { fg = "#00fbff" }) -- Cyan
 
+-- The line below is used to disable import check order
+vim.g.lazyvim_check_order = false
+
 require("lazy").setup({
   spec = {
     -- import/override with your plugins
-    { "ellisonleao/gruvbox.nvim",
+    {
+      "folke/tokyonight.nvim",
       opts = {
-        transparent_mode = true
-      }
+        style = "night",
+        transparent = true,
+        on_highlights = function(hl, c)
+          hl.NormalFloat = { fg = c.white, bg = "NONE" }
+          hl.FloatBorder = { fg = c.white, bg = "NONE" }
+          hl.NormalNC = { fg = c.white, bg = "NONE" }
+          hl.FloatTitle = { fg = c.white, bg = "NONE" }
+        end,
+      },
     },
     {
       "LazyVim/LazyVim",
       opts = {
-        colorscheme = "gruvbox",
+        colorscheme = "tokyonight",
       },
     },
     { import = "plugins" },

@@ -1,48 +1,84 @@
+local utils = require("utils")
+
+local branch_with_remote = {
+  function()
+    local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
+    if branch == "" then return "" end
+    if utils.has_remote_branch() then
+      local remote = vim.fn.system("git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null"):gsub("\n", "")
+      return string.format(" %s...%s", branch, remote)
+    else
+      return string.format(" %s...no-remote", branch)
+    end
+  end,
+}
+
 return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    config = function()
-      local function get_git_info()
-        -- 1. Get the current local branch
-        local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
-
-        -- If not in a git repo, branch will be empty
-        if branch == "" then
-          return ("undefined")
-        end
-
-        -- 2. Get the remote tracking branch (e.g., origin/main)
-        local remote = vim.fn.system("git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null"):gsub("\n", "")
-
-        -- 3. Return a formatted string or separate values
-        if remote ~= "" then
-          return string.format(" %s...%s ", branch, remote)
-        else
-          return string.format( "%s...no-remote ", branch)
-        end
-      end
-
-      -- Example: Print to the Neovim command line
-      print(get_git_info())
-
-      require("lualine").setup({
-        options = {
-          theme = "powerline_dark",
-          -- component_separators = { left = "|", right = "|" },
-          -- section_separators = { left = "", right = "" },
-          icons_enabled = true,
+    opts = {
+      options = {
+        icons_enabled = true,
+        theme = "auto",
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
+        disabled_filetypes = {
+          statusline = {},
+          winbar = {},
         },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = { get_git_info },
-          lualine_c = { "%f" },
-          lualine_y = { "searchcount" },
-          lualine_z = { "location" },
+        ignore_focus = {},
+        always_divide_middle = true,
+        always_show_tabline = false,
+        globalstatus = false,
+        refresh = {
+          statusline = 1000,
+          tabline = 1000,
+          winbar = 1000,
+          refresh_time = 16, -- ~60fps
+          events = {
+            "WinEnter",
+            "BufEnter",
+            "BufWritePost",
+            "SessionLoadPost",
+            "FileChangedShellPost",
+            "VimResized",
+            "Filetype",
+            "CursorMoved",
+            "CursorMovedI",
+            "ModeChanged",
+          },
         },
-      })
-    end,
+      },
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { branch_with_remote, "diff", "diagnostics" },
+        lualine_c = { { "filename", path = 3 } },
+        lualine_x = { "encoding", "fileformat", "filetype" },
+        lualine_y = { "progress" },
+        lualine_z = { "location" },
+      },
+      -- inactive_sections = {},
+      -- tabline = {
+      --   lualine_a = {},
+      --   lualine_b = {},
+      --   lualine_c = {},
+      --   lualine_x = {},
+      --   lualine_y = {},
+      --   lualine_z = {},
+      -- },
+      -- winbar = {
+      --   lualine_a = {"buffers"},
+      --   lualine_b = {},
+      --   lualine_c = {},
+      --   lualine_x = {},
+      --   lualine_y = {},
+      --   lualine_z = {},
+      -- },
+      inactive_winbar = {},
+      extensions = {},
+    },
   },
 }

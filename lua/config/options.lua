@@ -24,6 +24,8 @@ vim.diagnostic.config({
     update_in_insert = false,
 })
 
+vim.opt.cmdheight = 1 -- prevent black block rendering artifacts caused by cmdheight=0
+
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2

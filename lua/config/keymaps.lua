@@ -18,6 +18,7 @@ vim.keymap.set('n', '<Leader>q', ':q<CR>', { desc = "Quit from nvim",  noremap=t
 
 -- Telescope keymaps
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>",  { desc = "Find files",  noremap=true, silent=true })
+vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>",  { desc = "Diagnose Project",  noremap=true, silent=true })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>",   { desc = "Grep in project", noremap=true, silent=true })
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>",     { desc = "See buffers", noremap=true, silent=true })
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",   { desc = "Help tags", noremap=true, silent=true })
@@ -38,3 +39,5 @@ vim.keymap.set("n", "<C-k>k", ":bd<cr>",   { desc = "delete the current buffer",
 -- Lsp keymaps
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = 'LSP: Hover Documentation' })
 vim.keymap.set('n', '<C-k>d', vim.diagnostic.open_float, { buffer = bufnr, desc = 'Show line diagnostics' })
+vim.keymap.set('n', 'grj', vim.lsp.buf.definition, { buffer = bufnr, desc = 'Lsp: Go to definition' })
+vim.keymap.set('n', 'grk', vim.lsp.buf.type_definition, { buffer = bufnr, desc = 'Lsp: Go to type definition' })
