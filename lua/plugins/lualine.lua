@@ -58,7 +58,15 @@ return {
         lualine_c = { { "filename", path = 3 } },
         lualine_x = { "encoding", "fileformat", "filetype" },
         lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_z = {
+          {
+            function()
+              local ok, opencode = pcall(require, "opencode")
+              return ok and opencode.statusline() or ""
+            end,
+          },
+          "location",
+        },
       },
       -- inactive_sections = {},
       -- tabline = {

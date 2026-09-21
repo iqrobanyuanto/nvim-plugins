@@ -35,7 +35,7 @@ return {
     },
     text = {
       default = nil,
-      workspace = "Cuma mau keliatan sibuk aja",
+      workspace = "Remielle's husband",
       viewing = function(opts)
         return "Viewing " .. opts.filename
       end,
