@@ -1,7 +1,7 @@
 return {
   "vyfor/cord.nvim",
   opts = {
-    enabled = true,
+    enabled = false,
     log_level = vim.log.levels.OFF,
     editor = {
       client = "neovim",
